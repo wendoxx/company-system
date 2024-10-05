@@ -1,6 +1,6 @@
 package org.example.companysystem.model;
 
-public enum employeeStatus {
+public enum EmployeeStatus {
     ACTIVE,
     INACTIVE,
     VACATION,
