@@ -7,5 +7,5 @@ Ou seja, essa aplicação fará um simples CRUD, porém haverá a implementaçã
 ### Spring Boot v3.3.4:
 * Spring Data JPA --> Para criar as interações com o banco de dados.
 * Lombok --> para reduzir a quantidade de boilerplate, tendo uma melhor legibilidade do código.
-* PostgreSQL --> Será o bancod de dados utilizado na aplicação
+* PostgreSQL --> Será o banco de dados utilizado na aplicação
 * Swagger --> Será o framework utilizado para fazer a documentação da API.
