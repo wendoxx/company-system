@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,16 +25,14 @@ public class EmployeeModel implements Serializable {
     private String name;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
-    @Column(name = "status", nullable = false)
-    private EmployeeStatus status;
 
     @Column(name = "salary", nullable = false)
-    private double salary;
+    private String salary;
 
-    @Column(name = "admission_date", nullable = false)
-    private LocalDateTime admissionDate;
+    @Column(name = "admission_date")
+    private LocalDateTime admissionDate = LocalDateTime.now();
 
     @Column(name = "function", nullable = false)
     private String function;
