@@ -8,11 +8,11 @@ import org.apache.logging.log4j.Logger;
 import org.example.companysystem.dto.EmployeeRequestDTO;
 import org.example.companysystem.dto.EmployeeResponseDTO;
 import org.example.companysystem.model.EmployeeModel;
-import org.example.companysystem.model.EmployeeStatus;
 import org.example.companysystem.repository.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -59,15 +59,14 @@ public class EmployeeService {
         return modelMapper.map(employeeModel, EmployeeResponseDTO.class);
     }
 
-    public EmployeeResponseDTO findEmployeeByStatus(String status) {
-        LOGGER.info("Finding employee...");
-        EmployeeModel employeeModel = modelMapper.map(employeeRepository.findByStatus(status)
-                .orElseThrow(() -> {
-                    LOGGER.error("Employee not found");
-                    return new RuntimeException("Employee not found");
-                }), EmployeeModel.class);
-        LOGGER.info("Employee found");
-        return modelMapper.map(employeeModel, EmployeeResponseDTO.class);
+    public List<EmployeeResponseDTO> findAllEmployees() {
+        LOGGER.info("Finding all employees...");
+        if (employeeRepository.findAll().isEmpty()) {
+            LOGGER.error("No employees found");
+            throw new RuntimeException("No employees found");
+        }
+        LOGGER.info("Employees found");
+        return modelMapper.map(employeeRepository.findAll(), List.class);
     }
 
     @Transactional
@@ -88,8 +87,9 @@ public class EmployeeService {
         }
 
         employee.setName(requestDTO.getName());
-        employee.setStatus(EmployeeStatus.valueOf(requestDTO.getStatus()));
         employee.setFunction(requestDTO.getFunction());
+        employee.setBirthDate(requestDTO.getBirthDate());
+        employee.setSalary(requestDTO.getSalary());
 
         return modelMapper.map(employeeRepository.save(employee), EmployeeResponseDTO.class);
     }
@@ -104,7 +104,6 @@ public class EmployeeService {
         return saveAndUpdateEmployee(requestDTO);
     }
 
-    @Transactional
     public void deleteEmployee(UUID id) {
         LOGGER.info("Deleting employee...");
         employeeRepository.deleteById(id);

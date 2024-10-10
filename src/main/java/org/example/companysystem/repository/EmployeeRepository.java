@@ -12,5 +12,4 @@ import java.util.UUID;
 public interface EmployeeRepository extends JpaRepository<EmployeeModel, UUID> {
     Optional<EmployeeRepository> findByName(String name);
     Optional<EmployeeRepository> findByFunction(String function);
-    Optional<EmployeeRepository> findByStatus(String status);
 }
