@@ -48,6 +48,12 @@ public class EmployeeController {
         return ResponseEntity.status(201).body(employeeService.updateEmployee(employee));
     }
 
+    @PutMapping("/status")
+    public ResponseEntity<EmployeeResponseDTO> employeeStatus(@RequestBody EmployeeRequestDTO employee){
+        return ResponseEntity.status(201).body(employeeService.saveAndUpdateEmployee(employee));
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable UUID id){
         employeeService.deleteEmployee(id);

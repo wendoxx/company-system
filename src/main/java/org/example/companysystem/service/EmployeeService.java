@@ -74,7 +74,7 @@ public class EmployeeService {
 
         EmployeeModel employee;
 
-        if (requestDTO.getId() != null) {
+        if (requestDTO.getId() != null && employeeRepository.existsById(requestDTO.getId())) {
             LOGGER.info("Updating employee...");
             employee = modelMapper.map(employeeRepository.findById(requestDTO.getId())
                     .orElseThrow(() -> {
@@ -86,11 +86,30 @@ public class EmployeeService {
             employee = new EmployeeModel();
         }
 
+        if (requestDTO.getStatus().equals("active") || requestDTO.getStatus().equals("Active") || requestDTO.equals("ACTIVE")) {
+            employee.setStatus(EmployeeStatus.ACTIVE);
+        } else if (requestDTO.getStatus().equals("inactive") || requestDTO.getStatus().equals("Inactive") || requestDTO.equals("INACTIVE")) {
+            employee.setStatus(EmployeeStatus.INACTIVE);
+        } else if (requestDTO.getStatus().equals("vacation") || requestDTO.getStatus().equals("Vacation") || requestDTO.equals("VACATION")) {
+            employee.setStatus(EmployeeStatus.VACATION);
+        } else if (requestDTO.getStatus().equals("sick leave") || requestDTO.getStatus().equals("Sick Leave") || requestDTO.equals("SICK_LEAVE")) {
+            employee.setStatus(EmployeeStatus.SICK_LEAVE);
+        } else if (requestDTO.getStatus().equals("maternity leave") || requestDTO.getStatus().equals("Maternity Leave") || requestDTO.equals("MATERNITY_LEAVE")) {
+            employee.setStatus(EmployeeStatus.MATERNITY_LEAVE);
+        } else if (requestDTO.getStatus().equals("paternity leave") || requestDTO.getStatus().equals("Paternity Leave") || requestDTO.equals("PATERNITY_LEAVE")) {
+            employee.setStatus(EmployeeStatus.PATERNITY_LEAVE);
+        } else if (requestDTO.getStatus().equals("suspended") || requestDTO.getStatus().equals("Suspended") || requestDTO.equals("SUSPENDED")) {
+            employee.setStatus(EmployeeStatus.SUSPENDED);
+        } else {
+            LOGGER.error("Invalid status");
+            throw new RuntimeException("Invalid status");
+        }
+
         employee.setName(requestDTO.getName());
         employee.setFunction(requestDTO.getFunction());
         employee.setBirthDate(requestDTO.getBirthDate());
         employee.setSalary(requestDTO.getSalary());
-
+   //     employeeStatusService.addStatus(requestDTO);
         return modelMapper.map(employeeRepository.save(employee), EmployeeResponseDTO.class);
     }
 
