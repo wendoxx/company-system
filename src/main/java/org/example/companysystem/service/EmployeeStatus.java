@@ -1,4 +1,5 @@
-package org.example.companysystem.model;
+package org.example.companysystem.service;
+
 
 public enum EmployeeStatus {
     ACTIVE,
