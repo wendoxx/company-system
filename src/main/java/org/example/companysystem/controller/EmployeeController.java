@@ -7,6 +7,7 @@ import org.example.companysystem.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +48,12 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(@RequestBody EmployeeRequestDTO employee){
         return ResponseEntity.status(201).body(employeeService.updateEmployee(employee));
     }
+
+    @PutMapping("/status")
+    public ResponseEntity<EmployeeResponseDTO> employeeStatus(@RequestBody EmployeeRequestDTO employee){
+        return ResponseEntity.status(201).body(employeeService.saveAndUpdateEmployee(employee));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable UUID id){
