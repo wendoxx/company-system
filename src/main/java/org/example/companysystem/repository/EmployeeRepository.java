@@ -1,7 +1,6 @@
 package org.example.companysystem.repository;
 
 import org.example.companysystem.model.EmployeeModel;
-import org.example.companysystem.model.EmployeeStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

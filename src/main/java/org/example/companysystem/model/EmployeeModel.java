@@ -2,6 +2,8 @@ package org.example.companysystem.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.example.companysystem.service.EmployeeStatus;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "tb_employee")
+@EqualsAndHashCode
 public class EmployeeModel implements Serializable {
 
     @Serial
@@ -27,6 +30,8 @@ public class EmployeeModel implements Serializable {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    @Column(name = "status")
+    private EmployeeStatus status;
 
     @Column(name = "salary", nullable = false)
     private String salary;
