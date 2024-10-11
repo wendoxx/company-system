@@ -14,5 +14,6 @@ public class EmployeeResponseDTO {
     private LocalDate birthDate;
     private String function;
     private String salary;
+    private String status;
     private LocalDateTime admissionDate;
 }

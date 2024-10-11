@@ -12,5 +12,6 @@ public class EmployeeRequestDTO {
     private String name;
     private LocalDate birthDate;
     private String salary;
+    private String Status;
     private String function;
 }
